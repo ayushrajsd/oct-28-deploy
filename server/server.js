@@ -1,5 +1,17 @@
+const path = require("path");
 const express = require("express");
+const cors = require("cors");
 const app = express();
+app.use(
+  cors({
+    origin: "*", // allow to server to accept request from different origin
+    methods: ["GET,PUT,PATCH,POST,DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+const clientBuildPath = path.join(__dirname, "../client/build");
+console.log("clientBuildPath", clientBuildPath);
+app.use(express.static(clientBuildPath));
 require("dotenv").config(); // load environment variables
 /**
  * import - ES6 module syntax to import modules
